@@ -18,15 +18,18 @@ const checkPoints = () => {
     } else return 0
 }
 
+const calculateClicksLeftBeforePoints = () => {
+    const nextPointGivingClick = Math.ceil((counter +1) / 10) * 10
+    return nextPointGivingClick - counter
+}
+
 const io = socket(server)
 
 io.on("connection", (socket) => {
     socket.on("click", () => {
         counter++
-        let points = checkPoints()
-        const nextPointGivingClick = Math.ceil((counter +1) / 10) * 10
-        const clicksLeftBeforePoints = nextPointGivingClick - counter
-        console.log(counter)
+        const points = checkPoints()
+        const clicksLeftBeforePoints = calculateClicksLeftBeforePoints()
         socket.emit("clickResponse", { clicksLeftBeforePoints: clicksLeftBeforePoints, pointsIncreased: points})
     })
 })
