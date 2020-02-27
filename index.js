@@ -8,7 +8,7 @@ const server = app.listen(3001, () => {
 
 let counter = 0
 
-const givePoints = (counter) => {
+const checkPoints = () => {
     if(counter % 500 === 0){
         return 250
     } else if (counter % 100 === 0){
@@ -21,12 +21,13 @@ const givePoints = (counter) => {
 const io = socket(server)
 
 io.on("connection", (socket) => {
-  
     socket.on("click", () => {
-        counter++;
-        points = givePoints(counter)
+        counter++
+        let points = checkPoints()
+        const nextPointGivingClick = Math.ceil((counter +1) / 10) * 10
+        const clicksLeftBeforePoints = nextPointGivingClick - counter
         console.log(counter)
-        socket.emit("clickResponse", { pointsIncreased: points})
+        socket.emit("clickResponse", { clicksLeftBeforePoints: clicksLeftBeforePoints, pointsIncreased: points})
     })
 })
 
