@@ -1,6 +1,7 @@
 const express = require("express")
 const socket = require("socket.io")
 const app = express() 
+app.use(express.static('./build'))
 
 const server = app.listen(3001, () => {
     console.log("listening 3001")
