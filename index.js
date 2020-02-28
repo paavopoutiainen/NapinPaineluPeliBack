@@ -1,10 +1,11 @@
 const express = require("express")
 const socket = require("socket.io")
 const app = express() 
+const port = process.env.PORT || 3001
 app.use(express.static('./build'))
 
-const server = app.listen(3001, () => {
-    console.log("listening 3001")
+const server = app.listen(port, () => {
+    console.log(`Listening to ${port}`)
 })
 
 let counter = 0
