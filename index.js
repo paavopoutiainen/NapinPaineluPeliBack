@@ -7,6 +7,7 @@ app.use(express.static('./build'))
 const server = app.listen(port, () => {
     console.log(`Listening to ${port}`)
 })
+app.use(cors())
 
 let counter = 0
 
